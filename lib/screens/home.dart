@@ -58,8 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       body: AnimatedContainer(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
         duration: Duration(milliseconds: 2500),
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -78,214 +76,218 @@ class _HomeScreenState extends State<HomeScreen> {
                 ]
             )
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height*0.2,
-                  width: MediaQuery.of(context).size.width*0.75,
-                  child: Card(
-                    margin: EdgeInsets.all(0),
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.2,
+                    width: MediaQuery.of(context).size.width*0.75,
+                    child: Card(
+                      margin: EdgeInsets.all(0),
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      elevation: 10,
+                      child: Center(
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            WavyAnimatedText("Tap & Tap",
+                                speed: Duration(milliseconds: 450),
+                                textStyle: TextStyle(
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffDD2A7B),
+                                )),
+                          ],
+                          repeatForever: true,
+                          isRepeatingAnimation: true,
+                        ),
+                      ),
                     ),
-                    elevation: 10,
-                    child: Center(
-                      child: AnimatedTextKit(
-                        animatedTexts: [
-                          WavyAnimatedText("Tap & Tap",
-                              speed: Duration(milliseconds: 450),
-                              textStyle: GoogleFonts.lato(
-                                fontSize: MediaQuery.of(context).size.width*0.078,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.05,
+                  ),
+                  GestureDetector(
+                    onTapDown: (value){
+                      setState(() {
+                        newGame = true;
+                      });
+                    },
+                    onTapUp: (value){
+                      setState(() {
+                        newGame = false;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return Play(isComp: false,);
+                        },));
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.bounceInOut,
+                      height: newGame == false ? 65 : 60,
+                      width: newGame == false ? 200 : 185,
+                      child: Card(
+                        margin: EdgeInsets.all(0),
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 10,
+                        child: Center(
+                            child: Text("Play",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Source",
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xffDD2A7B),
-                              )),
-                        ],
-                        repeatForever: true,
-                        isRepeatingAnimation: true,
+                              ),)
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height*0.05,
-                ),
-                GestureDetector(
-                  onTapDown: (value){
-                    setState(() {
-                      newGame = true;
-                    });
-                  },
-                  onTapUp: (value){
-                    setState(() {
-                      newGame = false;
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return Play(isComp: false,);
-                      },));
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.bounceInOut,
-                    height: newGame == false ? 65 : 60,
-                    width: newGame == false ? 200 : 185,
-                    child: Card(
-                      margin: EdgeInsets.all(0),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 10,
-                      child: Center(
-                          child: Text("Play",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Source",
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xffDD2A7B),
-                            ),)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.05,
+                  ),
+                  GestureDetector(
+                    onTapDown: (value){
+                      setState(() {
+                        comp = true;
+                      });
+                    },
+                    onTapUp: (value){
+                      setState(() {
+                        comp = false;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return Play(isComp: true,);
+                        },));
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.bounceInOut,
+                      height: comp == false ? 65 : 60,
+                      width: comp == false ? 200 : 185,
+                      child: Card(
+                        margin: EdgeInsets.all(0),
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 10,
+                        child: Center(
+                            child: Text("Single Player",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Source",
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xffDD2A7B),
+                              ),)
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height*0.05,
-                ),
-                GestureDetector(
-                  onTapDown: (value){
-                    setState(() {
-                      comp = true;
-                    });
-                  },
-                  onTapUp: (value){
-                    setState(() {
-                      comp = false;
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return Play(isComp: true,);
-                      },));
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.bounceInOut,
-                    height: comp == false ? 65 : 60,
-                    width: comp == false ? 200 : 185,
-                    child: Card(
-                      margin: EdgeInsets.all(0),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 10,
-                      child: Center(
-                          child: Text("Single Player",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Source",
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xffDD2A7B),
-                            ),)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.05,
+                  ),
+                  GestureDetector(
+                    onTapDown: (value){
+                      setState(() {
+                        how = true;
+                      });
+                    },
+                    onTapUp: (value){
+                      setState(() {
+                        how = false;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          return HowToPlay();
+                        },));
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.bounceInOut,
+                      height: how == false ? 65 : 60,
+                      width: how == false ? 200 : 185,
+                      child: Card(
+                        margin: EdgeInsets.all(0),
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 10,
+                        child: Center(
+                            child: Text("How to play",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Source",
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xffDD2A7B),
+                              ),)
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height*0.05,
-                ),
-                GestureDetector(
-                  onTapDown: (value){
-                    setState(() {
-                      how = true;
-                    });
-                  },
-                  onTapUp: (value){
-                    setState(() {
-                      how = false;
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return HowToPlay();
-                      },));
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.bounceInOut,
-                    height: how == false ? 65 : 60,
-                    width: how == false ? 200 : 185,
-                    child: Card(
-                      margin: EdgeInsets.all(0),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 10,
-                      child: Center(
-                          child: Text("How to play",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Source",
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xffDD2A7B),
-                            ),)
-                      ),
-                    ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+                  IconButton(
+                    icon: Icon(Icons.help),
+                    iconSize: 26,
+                    color: Colors.white,
+                    onPressed: (){
+                      // Navigator.push(context, MaterialPageRoute(builder: (context){
+                      //   return Help();
+                      // }));
+                    },
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
 
-                IconButton(
-                  icon: Icon(Icons.help),
-                  iconSize: 26,
-                  color: Colors.white,
-                  onPressed: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context){
-                    //   return Help();
-                    // }));
-                  },
-                ),
+                  IconButton(
+                    icon: Icon(Icons.star),
+                    iconSize: 26,
+                    color: Colors.white,
+                    onPressed: (){
+                      // rate();
+                    },
+                  ),
 
-                IconButton(
-                  icon: Icon(Icons.star),
-                  iconSize: 26,
-                  color: Colors.white,
-                  onPressed: (){
-                    // rate();
-                  },
-                ),
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    iconSize: 25,
+                    color: Colors.white,
+                    onPressed: (){
+                      // share();
+                    },
+                  ),
 
-                IconButton(
-                  icon: Icon(Icons.share),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: (){
-                    // share();
-                  },
-                ),
-
-                IconButton(
-                  icon: Icon(Icons.settings),
-                  iconSize: 25,
-                  color: Colors.white,
-                  onPressed: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    //   return Setting();
-                    // },));
-                  },
-                ),
-              ],
-            ),
-          ],
+                  IconButton(
+                    icon: Icon(Icons.settings),
+                    iconSize: 25,
+                    color: Colors.white,
+                    onPressed: (){
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      //   return Setting();
+                      // },));
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         // child: Stack(
         //   alignment: Alignment.center,
